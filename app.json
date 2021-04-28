@@ -2,6 +2,7 @@
   "name": "make-strong-password",
   "description": "A Python app, which creates strong passwords",
   "repository": "https://github.com/vivek2509/password_generator",
+  "image": "heroku/python",
   "keywords": ["python", "django"],
   "addons": ["heroku-postgresql"],
   "env": {
