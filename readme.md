@@ -22,7 +22,6 @@ Your app should now be running on [localhost:8000](http://localhost:8000/).
 ## Deploying to Heroku
 
 ```sh
-$ heroku create
+$ heroku login
 $ git push heroku main
-
 $ heroku run python manage.py migrate
