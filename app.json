@@ -1,0 +1,21 @@
+{
+  "name": "make-strong-password",
+  "description": "A Python app, which creates strong passwords",
+  "repository": "https://github.com/vivek2509/password_generator",
+  "keywords": ["python", "django"],
+  "addons": ["heroku-postgresql"],
+  "env": {
+    "SECRET_KEY": {
+      "description": "The secret key for the Django application.",
+      "generator": "secret"
+    }
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
+      }
+    }
+  }
+}
