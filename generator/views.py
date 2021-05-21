@@ -11,22 +11,45 @@ def about(request):
 
 
 def password(request):
-
-    characters = list('abcdefghijklmnopqrstuvwxyz')
-
-    if request.GET.get('uppercase'):
-        characters.extend(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
-
-    if request.GET.get('special'):
-        characters.extend(list('!@#$%*.'))
-
-    if request.GET.get('number'):
-        characters.extend(list('0123456789'))
-
-    length = int(request.GET.get('length'))
+    pwd = []
     thepassword = ''
+    length = int(request.GET.get('length'))
 
-    for x in range(length):
-        thepassword += random.choice(characters)
+    characters = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    symbol = list('!@#$%*.')
+    number = list('0123456789')
+
+    if request.GET.get('special') and request.GET.get('number'):
+        chlen = length//2
+        splen = chlen//2
+        nmlen = length - chlen - splen
+        for x in range(chlen):
+            pwd.append(random.choice(characters))
+        for x in range(splen):
+            pwd.append(random.choice(symbol))
+        for x in range(nmlen):
+            pwd.append(random.choice(number))
+    elif request.GET.get('special'):
+        chlen = length//2
+        splen = length - chlen
+        for x in range(chlen):
+            pwd.append(random.choice(characters))
+        for x in range(splen):
+            pwd.append(random.choice(symbol))
+    elif request.GET.get('number'):
+        chlen = length//2
+        nmlen = length - chlen
+        for x in range(chlen):
+            pwd.append(random.choice(characters))
+        for x in range(nmlen):
+            pwd.append(random.choice(number))
+    else:
+        for x in range(length):
+            pwd.append(random.choice(characters))
+
+    random.shuffle(pwd)
+
+    for char in pwd:
+        thepassword += char
 
     return render(request, 'generator/password.html', {'password': thepassword})
